@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buzón de Sugerencias</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Formulario para enviar sugerencias -->
+        <div id="suggestions-form" class="form-container active">
+            <h2>Formulario de sugerencias</h2>
+            <label for="name-suggestion">Nombre:</label>
+            <input type="text" id="name-suggestion" name="name-suggestion" placeholder="Tu nombre" required>
+
+            <label for="email-suggestion">Correo electrónico:</label>
+            <input type="email" id="email-suggestion" name="email-suggestion" placeholder="tu.email@example.com" required>
+
+            <label for="suggestion-text">Sugerencia:</label>
+            <textarea id="suggestion-text" name="suggestion-text" placeholder="Escribe tu sugerencia aquí..." required></textarea>
+
+            <button type="button" onclick="submitSuggestion()">Enviar Sugerencia</button>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+
+    <script>
+        function submitSuggestion() {
+            const name = document.getElementById('name-suggestion').value;
+            const email = document.getElementById('email-suggestion').value;
+            const suggestion = document.getElementById('suggestion-text').value;
+
+            if (name && email && suggestion) {
+                // Aquí se podría enviar la sugerencia a un servidor o almacenarla localmente
+                const suggestionItem = document.createElement('li');
+                suggestionItem.textContent = `${name} (${email}): ${suggestion}`;
+                document.getElementById('suggestions-list').appendChild(suggestionItem);
+
+                // Limpiar el formulario
+                document.getElementById('name-suggestion').value = '';
+                document.getElementById('email-suggestion').value = '';
+                document.getElementById('suggestion-text').value = '';
+
+                Swal.fire('Gracias', 'Tu sugerencia ha sido enviada', 'success');
+            } else {
+                Swal.fire('Error', 'Por favor, completa todos los campos', 'error');
+            }
+        }
+    </script>
+</body>
+</html>
